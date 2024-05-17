@@ -1,6 +1,6 @@
 const { sql } = require("@vercel/postgres");
 
-async function insertData(req, res) {
+export default async function insertData(req, res) {
     try {
         if (req.method !== "POST") {
             return res
@@ -8,17 +8,23 @@ async function insertData(req, res) {
                 .json({ message: "Method tidak diperbolehkan" });
         }
 
-        const { title, contain } = req.body;
+        const { nama_transaksi, income, outcome, tanggal, bulan, tahun } =
+            req.body;
 
-        if (!title || !contain) {
-            return res
-                .status(400)
-                .json({ message: "Title dan contain harus diisi" });
+        if (
+            !nama_transaksi ||
+            !income ||
+            !outcome ||
+            !tanggal ||
+            !bulan ||
+            !tahun
+        ) {
+            return res.status(400).json({ message: "Semua field harus diisi" });
         }
 
         const rows = await sql`
-            INSERT INTO note (title, contain)
-            VALUES (${title}, ${contain})
+            INSERT INTO transactions (nama_transaksi, income, outcome, tanggal, bulan, tahun)
+            VALUES (${nama_transaksi}, ${income}, ${outcome}, ${tanggal}, ${bulan}, ${tahun})
             RETURNING *
         `;
 
@@ -28,5 +34,3 @@ async function insertData(req, res) {
         return res.status(500).json({ message: "Terjadi error" });
     }
 }
-
-export default insertData;

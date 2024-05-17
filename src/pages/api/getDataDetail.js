@@ -1,6 +1,6 @@
 const { sql } = require("@vercel/postgres");
 
-export default async function handler(req, res) {
+export default async function getDataDetail(req, res) {
     try {
         if (req.method !== "GET") {
             return res
@@ -15,8 +15,8 @@ export default async function handler(req, res) {
         }
 
         const { rows } = await sql`
-            SELECT title, contain, created_at 
-            FROM note 
+            SELECT * 
+            FROM transactions 
             WHERE id = ${id}
         `;
 

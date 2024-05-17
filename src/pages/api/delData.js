@@ -1,6 +1,6 @@
 const { sql } = require("@vercel/postgres");
 
-async function delData(req, res) {
+export default async function delData(req, res) {
     try {
         if (req.method !== "DELETE") {
             return res
@@ -15,7 +15,7 @@ async function delData(req, res) {
         }
 
         const { rows } = await sql`
-            DELETE FROM note 
+            DELETE FROM transactions 
             WHERE id = ${id}
             RETURNING *
         `;
@@ -30,5 +30,3 @@ async function delData(req, res) {
         return res.status(500).json({ message: "Terjadi error" });
     }
 }
-
-export default delData;

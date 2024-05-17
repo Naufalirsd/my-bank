@@ -5,7 +5,7 @@ const { sql } = require("@vercel/postgres");
 async function execute() {
     try {
         const { rows } = await sql`
-        DELETE FROM note
+        DELETE FROM transactions
         RETURNING *
         `;
         console.log("Data deleted:", rows);

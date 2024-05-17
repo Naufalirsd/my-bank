@@ -1,6 +1,6 @@
 const { sql } = require("@vercel/postgres");
 
-async function getData(req, res) {
+export default async function getData(req, res) {
     try {
         if (req.method !== "GET") {
             return res
@@ -8,7 +8,7 @@ async function getData(req, res) {
                 .json({ message: "Method tidak diperbolehkan" });
         }
 
-        const { rows } = await sql`SELECT * FROM note`;
+        const { rows } = await sql`SELECT * FROM transactions`;
 
         res.status(200).json({ message: "Success", data: rows });
     } catch (e) {
@@ -16,5 +16,3 @@ async function getData(req, res) {
         return res.status(500).json({ message: "Terjadi error" });
     }
 }
-
-export default getData;

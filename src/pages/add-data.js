@@ -46,26 +46,45 @@ const SubmitButton = styled.button`
     border-radius: 5px;
 `;
 
-export default function Handler() {
-    const [inputValueTitle, setInputValueTitle] = useState("");
-    const [inputValueContain, setInputValueContain] = useState("");
+export default function AddData() {
+    const [inputValueNamaTransaksi, setInputValueNamaTransaksi] = useState("");
+    const [inputValueIncome, setInputValueIncome] = useState(0);
+    const [inputValueOutcome, setInputValueOutcome] = useState(0);
     const router = useRouter();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const created_at = new Date();
+        const tanggal = created_at.getDate();
+        const bulan = created_at.getMonth() + 1; // bulan dimulai dari 0
+        const tahun = created_at.getFullYear();
+
+        const dataToSend = {
+            nama_transaksi: inputValueNamaTransaksi,
+            income: inputValueIncome,
+            outcome: inputValueOutcome,
+            created_at: created_at,
+            tanggal: tanggal,
+            bulan: bulan,
+            tahun: tahun,
+        };
+
+        console.log("Sending data: ", dataToSend);
+
         fetch(`/api/insertData`, {
             method: "POST",
             headers: {
-                "Content-type": "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                title: inputValueTitle,
-                contain: inputValueContain,
-            }),
+            body: JSON.stringify(dataToSend),
         })
             .then((response) => {
-                if (!response) {
-                    throw new Error("Gagal menambah data");
+                if (!response.ok) {
+                    return response.json().then((errorData) => {
+                        throw new Error(
+                            errorData.message || "Gagal menambah data"
+                        );
+                    });
                 }
                 return response.json();
             })
@@ -76,34 +95,43 @@ export default function Handler() {
             })
             .catch((err) => {
                 console.error("Error saat menambah data", err.message);
-                alert("EROR");
+                alert("Error: " + err.message);
             });
-    };
-
-    const handleChangeTitle = (event) => {
-        setInputValueTitle(event.target.value);
-    };
-
-    const handleChangeContain = (event) => {
-        setInputValueContain(event.target.value);
     };
 
     return (
         <Container>
-            <Header>Tambah Data</Header>
+            <Header>Tambah Data Transaksi</Header>
             <Form onSubmit={handleSubmit}>
                 <FormGroup>
-                    <Label>Title:</Label>
+                    <Label>Nama Transaksi:</Label>
                     <Input
-                        onChange={handleChangeTitle}
-                        value={inputValueTitle}
+                        type="text"
+                        maxLength="20"
+                        value={inputValueNamaTransaksi}
+                        onChange={(e) =>
+                            setInputValueNamaTransaksi(e.target.value)
+                        }
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label>Contain:</Label>
+                    <Label>Income:</Label>
                     <Input
-                        onChange={handleChangeContain}
-                        value={inputValueContain}
+                        type="number"
+                        value={inputValueIncome}
+                        onChange={(e) =>
+                            setInputValueIncome(parseInt(e.target.value))
+                        }
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Outcome:</Label>
+                    <Input
+                        type="number"
+                        value={inputValueOutcome}
+                        onChange={(e) =>
+                            setInputValueOutcome(parseInt(e.target.value))
+                        }
                     />
                 </FormGroup>
                 <SubmitButton type="submit">Add Data</SubmitButton>

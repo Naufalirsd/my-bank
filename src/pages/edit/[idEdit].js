@@ -47,7 +47,7 @@ const SubmitButton = styled.button`
     border-radius: 5px;
 `;
 
-export default function Home() {
+export default function EditData() {
     const router = useRouter();
     const [dataDetail, setDetail] = useState();
 
@@ -67,9 +67,13 @@ export default function Home() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const title = event.target.title.value;
-        const contain = event.target.contain.value;
-        const upload_at = new Date();
+        const nama_transaksi = event.target.nama_transaksi.value;
+        const income = parseInt(event.target.income.value);
+        const outcome = parseInt(event.target.outcome.value);
+        const created_at = new Date();
+        const tanggal = created_at.getDate();
+        const bulan = created_at.getMonth() + 1;
+        const tahun = created_at.getFullYear();
 
         fetch(`/api/updateData`, {
             method: "PUT",
@@ -77,10 +81,14 @@ export default function Home() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                title: title,
-                contain: contain,
-                upload_at: upload_at,
                 id: idEdit,
+                nama_transaksi: nama_transaksi,
+                income: income,
+                outcome: outcome,
+                created_at: created_at,
+                tanggal: tanggal,
+                bulan: bulan,
+                tahun: tahun,
             }),
         })
             .then((res) => res.json())
@@ -99,23 +107,39 @@ export default function Home() {
             {dataDetail === null && <p>Data Kosong</p>}
             {dataDetail && (
                 <div>
-                    <Header>Edit Data</Header>
+                    <Header>Edit Data Transaksi</Header>
                     <Form onSubmit={handleSubmit}>
                         <FormGroup>
-                            <Label htmlFor="title">Title:</Label>
+                            <Label>Nama Transaksi:</Label>
                             <Input
-                                name="title"
-                                defaultValue={dataDetail.title}
+                                name="nama_transaksi"
+                                defaultValue={dataDetail.nama_transaksi}
+                                maxLength="20"
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label htmlFor="contain">Contain:</Label>
+                            <Label>Income:</Label>
                             <Input
-                                name="contain"
-                                defaultValue={dataDetail.contain}
+                                name="income"
+                                type="number"
+                                defaultValue={dataDetail.income}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Outcome:</Label>
+                            <Input
+                                name="outcome"
+                                type="number"
+                                defaultValue={dataDetail.outcome}
                             />
                         </FormGroup>
                         <SubmitButton type="submit">Update Data</SubmitButton>
+                        <button
+                            onClick={() => {
+                                router.push(`/`);
+                            }}>
+                            Kembali
+                        </button>
                     </Form>
                 </div>
             )}

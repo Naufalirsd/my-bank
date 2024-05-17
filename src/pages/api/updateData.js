@@ -1,6 +1,6 @@
 const { sql } = require("@vercel/postgres");
 
-async function updateData(req, res) {
+export default async function updateData(req, res) {
     try {
         if (req.method !== "PUT") {
             return res
@@ -8,17 +8,29 @@ async function updateData(req, res) {
                 .json({ message: "Method tidak diperbolehkan" });
         }
 
-        const { id, title, contain } = req.body;
+        const { id, nama_transaksi, income, outcome, tanggal, bulan, tahun } =
+            req.body;
 
-        if (!title || !contain || !id) {
-            return res
-                .status(400)
-                .json({ message: "ID, title, dan contain harus diisi" });
+        if (
+            !id ||
+            !nama_transaksi ||
+            !income ||
+            !outcome ||
+            !tanggal ||
+            !bulan ||
+            !tahun
+        ) {
+            return res.status(400).json({ message: "Semua field harus diisi" });
         }
 
         const { rows } = await sql`
-            UPDATE note 
-            SET title = ${title}, contain = ${contain}, updated_at = CURRENT_TIMESTAMP 
+            UPDATE transactions 
+            SET nama_transaksi = ${nama_transaksi},
+                income = ${income},
+                outcome = ${outcome},
+                tanggal = ${tanggal},
+                bulan = ${bulan},
+                tahun = ${tahun}
             WHERE id = ${id}
             RETURNING *
         `;
@@ -33,5 +45,3 @@ async function updateData(req, res) {
         return res.status(500).json({ message: "Terjadi error" });
     }
 }
-
-export default updateData;
