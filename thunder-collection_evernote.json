@@ -1,0 +1,112 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "evernote",
+    "collectionId": "8e2b6721-036a-4fdc-9dac-8cc5a2971719",
+    "dateExported": "2024-05-15T06:17:09.106Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "be75c7c5-b398-47f4-89b1-d63edadb17ed",
+            "colId": "8e2b6721-036a-4fdc-9dac-8cc5a2971719",
+            "containerId": "",
+            "name": "insertData",
+            "url": "http://localhost:3000/api/insertData",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-13T13:14:42.244Z",
+            "modified": "2024-05-15T06:15:38.526Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Catatan harian\",\n  \"contain\": \"catatan hari rabu\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c2ed8aae-1d4b-4053-8a17-5d05e6f4b14c",
+            "colId": "8e2b6721-036a-4fdc-9dac-8cc5a2971719",
+            "containerId": "",
+            "name": "updateData",
+            "url": "http://localhost:3000/api/updateData?id=6",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-05-13T13:15:20.845Z",
+            "modified": "2024-05-15T06:16:30.962Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "6",
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"catatan harian\",\n  \"contain\": \"catatan hari selasa\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "9c33732f-e185-4793-8aae-ae27851e1a15",
+            "colId": "8e2b6721-036a-4fdc-9dac-8cc5a2971719",
+            "containerId": "",
+            "name": "getDataDetail",
+            "url": "http://localhost:3000/api/getDataDetail?id=5",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-13T13:20:10.938Z",
+            "modified": "2024-05-14T05:56:18.910Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "5",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "02f72c87-a455-434a-96c0-0f417c7067d4",
+            "colId": "8e2b6721-036a-4fdc-9dac-8cc5a2971719",
+            "containerId": "",
+            "name": "getData",
+            "url": "http://localhost:3000/api/getData",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-05-13T13:20:17.983Z",
+            "modified": "2024-05-13T13:20:47.248Z",
+            "headers": []
+        },
+        {
+            "_id": "66384509-b6ef-43f6-9c53-0f9cf8eafeef",
+            "colId": "8e2b6721-036a-4fdc-9dac-8cc5a2971719",
+            "containerId": "",
+            "name": "deleteData",
+            "url": "http://localhost:3000/api/delData?id=6",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-05-14T01:12:29.976Z",
+            "modified": "2024-05-15T06:16:50.548Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "6",
+                    "isPath": false
+                }
+            ]
+        }
+    ],
+    "ref": "WsQ9KPXfF88mxvd-NMF6_Pb7ynihwwTLUJGtloXcrGBSYxNfWEOhGu2GSNJJqQC77YL8485vwoDLyq2TCJ1ROg"
+}
