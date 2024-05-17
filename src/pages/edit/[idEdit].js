@@ -69,6 +69,9 @@ export default function EditData() {
         const nama_transaksi = event.target.nama_transaksi.value;
         const income = parseInt(event.target.income.value);
         const outcome = parseInt(event.target.outcome.value);
+        const tanggal = parseInt(event.target.tanggal.value);
+        const bulan = parseInt(event.target.bulan.value);
+        const tahun = parseInt(event.target.tahun.value);
 
         fetch(`/api/updateData`, {
             method: "PUT",
@@ -80,6 +83,9 @@ export default function EditData() {
                 nama_transaksi: nama_transaksi,
                 income: income,
                 outcome: outcome,
+                tanggal: tanggal,
+                bulan: bulan,
+                tahun: tahun,
             }),
         })
             .then((res) => res.json())
@@ -124,6 +130,30 @@ export default function EditData() {
                                 defaultValue={dataDetail.outcome}
                             />
                         </FormGroup>
+                        <FormGroup>
+                            <Label>Tanggal:</Label>
+                            <Input
+                                name="tanggal"
+                                type="number"
+                                defaultValue={dataDetail.tanggal}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Bulan:</Label>
+                            <Input
+                                name="bulan"
+                                type="number"
+                                defaultValue={dataDetail.bulan}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Tahun:</Label>
+                            <Input
+                                name="tahun"
+                                type="number"
+                                defaultValue={dataDetail.tahun}
+                            />
+                        </FormGroup>
                         <SubmitButton type="submit">Update Data</SubmitButton>
                         <button
                             onClick={() => {
@@ -137,3 +167,4 @@ export default function EditData() {
         </Container>
     );
 }
+

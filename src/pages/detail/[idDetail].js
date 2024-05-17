@@ -62,13 +62,23 @@ export default function Detail() {
                         <strong>Id:</strong> {idDetail}
                     </DetailItem>
                     <DetailItem>
-                        <strong>Title:</strong> {showData.title}
+                        <strong>Nama Transaksi:</strong>{" "}
+                        {showData.nama_transaksi}
                     </DetailItem>
                     <DetailItem>
-                        <strong>Contain:</strong> {showData.contain}
+                        <strong>Income:</strong> {showData.income}
                     </DetailItem>
                     <DetailItem>
-                        <strong>Updated At:</strong> {showData.updated_at}
+                        <strong>Outcome:</strong> {showData.outcome}
+                    </DetailItem>
+                    <DetailItem>
+                        <strong>Tanggal:</strong> {showData.tanggal}
+                    </DetailItem>
+                    <DetailItem>
+                        <strong>Bulan:</strong> {showData.bulan}
+                    </DetailItem>
+                    <DetailItem>
+                        <strong>Tahun:</strong> {showData.tahun}
                     </DetailItem>
                     <DetailItem>
                         <strong>Created At:</strong> {showData.created_at}

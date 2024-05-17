@@ -50,6 +50,9 @@ export default function AddData() {
     const [namaTransaksi, setNamaTransaksi] = useState("");
     const [income, setIncome] = useState("");
     const [outcome, setOutcome] = useState("");
+    const [tanggal, setTanggal] = useState("");
+    const [bulan, setBulan] = useState("");
+    const [tahun, setTahun] = useState("");
     const router = useRouter();
 
     const handleSubmit = (event) => {
@@ -58,6 +61,9 @@ export default function AddData() {
             nama_transaksi: namaTransaksi,
             income: parseInt(income),
             outcome: parseInt(outcome),
+            tanggal: parseInt(tanggal),
+            bulan: parseInt(bulan),
+            tahun: parseInt(tahun),
         };
 
         fetch(`/api/insertData`, {
@@ -115,9 +121,32 @@ export default function AddData() {
                         onChange={(e) => setOutcome(e.target.value)}
                     />
                 </FormGroup>
+                <FormGroup>
+                    <Label>Tanggal:</Label>
+                    <Input
+                        type="number"
+                        value={tanggal}
+                        onChange={(e) => setTanggal(e.target.value)}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Bulan:</Label>
+                    <Input
+                        type="number"
+                        value={bulan}
+                        onChange={(e) => setBulan(e.target.value)}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Tahun:</Label>
+                    <Input
+                        type="number"
+                        value={tahun}
+                        onChange={(e) => setTahun(e.target.value)}
+                    />
+                </FormGroup>
                 <SubmitButton type="submit">Tambah Data</SubmitButton>
             </Form>
         </Container>
     );
 }
-
