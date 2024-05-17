@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -49,9 +48,8 @@ const SubmitButton = styled.button`
 
 export default function EditData() {
     const router = useRouter();
-    const [dataDetail, setDetail] = useState();
-
     const { idEdit } = router.query;
+    const [dataDetail, setDataDetail] = useState();
 
     useEffect(() => {
         if (!idEdit) return;
@@ -59,9 +57,10 @@ export default function EditData() {
         fetch(`/api/getDataDetail?id=${idEdit}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
-                setDetail(data.data ? data.data : null);
-                console.log(data.data);
+                setDataDetail(data.data ? data.data : null);
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
             });
     }, [idEdit]);
 
@@ -70,10 +69,6 @@ export default function EditData() {
         const nama_transaksi = event.target.nama_transaksi.value;
         const income = parseInt(event.target.income.value);
         const outcome = parseInt(event.target.outcome.value);
-        const created_at = new Date();
-        const tanggal = created_at.getDate();
-        const bulan = created_at.getMonth() + 1;
-        const tahun = created_at.getFullYear();
 
         fetch(`/api/updateData`, {
             method: "PUT",
@@ -85,10 +80,6 @@ export default function EditData() {
                 nama_transaksi: nama_transaksi,
                 income: income,
                 outcome: outcome,
-                created_at: created_at,
-                tanggal: tanggal,
-                bulan: bulan,
-                tahun: tahun,
             }),
         })
             .then((res) => res.json())
@@ -96,8 +87,9 @@ export default function EditData() {
                 alert(data.message);
                 router.push(`/`);
             })
-            .catch((data) => {
-                alert("error: ", data.message);
+            .catch((err) => {
+                console.error("Error updating data:", err);
+                alert("Error: " + err.message);
             });
     };
 
@@ -114,7 +106,6 @@ export default function EditData() {
                             <Input
                                 name="nama_transaksi"
                                 defaultValue={dataDetail.nama_transaksi}
-                                maxLength="20"
                             />
                         </FormGroup>
                         <FormGroup>

@@ -47,29 +47,18 @@ const SubmitButton = styled.button`
 `;
 
 export default function AddData() {
-    const [inputValueNamaTransaksi, setInputValueNamaTransaksi] = useState("");
-    const [inputValueIncome, setInputValueIncome] = useState(0);
-    const [inputValueOutcome, setInputValueOutcome] = useState(0);
+    const [namaTransaksi, setNamaTransaksi] = useState("");
+    const [income, setIncome] = useState("");
+    const [outcome, setOutcome] = useState("");
     const router = useRouter();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const created_at = new Date();
-        const tanggal = created_at.getDate();
-        const bulan = created_at.getMonth() + 1; // bulan dimulai dari 0
-        const tahun = created_at.getFullYear();
-
         const dataToSend = {
-            nama_transaksi: inputValueNamaTransaksi,
-            income: inputValueIncome,
-            outcome: inputValueOutcome,
-            created_at: created_at,
-            tanggal: tanggal,
-            bulan: bulan,
-            tahun: tahun,
+            nama_transaksi: namaTransaksi,
+            income: parseInt(income),
+            outcome: parseInt(outcome),
         };
-
-        console.log("Sending data: ", dataToSend);
 
         fetch(`/api/insertData`, {
             method: "POST",
@@ -89,12 +78,11 @@ export default function AddData() {
                 return response.json();
             })
             .then((json) => {
-                console.log(json);
                 alert("Data berhasil ditambah");
                 router.push("/");
             })
             .catch((err) => {
-                console.error("Error saat menambah data", err.message);
+                console.error("Error saat menambah data:", err.message);
                 alert("Error: " + err.message);
             });
     };
@@ -107,35 +95,29 @@ export default function AddData() {
                     <Label>Nama Transaksi:</Label>
                     <Input
                         type="text"
-                        maxLength="20"
-                        value={inputValueNamaTransaksi}
-                        onChange={(e) =>
-                            setInputValueNamaTransaksi(e.target.value)
-                        }
+                        value={namaTransaksi}
+                        onChange={(e) => setNamaTransaksi(e.target.value)}
                     />
                 </FormGroup>
                 <FormGroup>
                     <Label>Income:</Label>
                     <Input
                         type="number"
-                        value={inputValueIncome}
-                        onChange={(e) =>
-                            setInputValueIncome(parseInt(e.target.value))
-                        }
+                        value={income}
+                        onChange={(e) => setIncome(e.target.value)}
                     />
                 </FormGroup>
                 <FormGroup>
                     <Label>Outcome:</Label>
                     <Input
                         type="number"
-                        value={inputValueOutcome}
-                        onChange={(e) =>
-                            setInputValueOutcome(parseInt(e.target.value))
-                        }
+                        value={outcome}
+                        onChange={(e) => setOutcome(e.target.value)}
                     />
                 </FormGroup>
-                <SubmitButton type="submit">Add Data</SubmitButton>
+                <SubmitButton type="submit">Tambah Data</SubmitButton>
             </Form>
         </Container>
     );
 }
+

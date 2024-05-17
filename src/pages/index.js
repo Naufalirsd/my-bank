@@ -29,7 +29,7 @@ const NoteCard = styled.div`
     margin: 10px 0;
     border: 1px solid #e9ecef;
     border-radius: 5px;
-    position: relative; /* Untuk membuat tombol edit/delete terletak di posisi relatif terhadap parentnya */
+    position: relative;
 `;
 
 const NoteTitle = styled.h2`
@@ -80,16 +80,15 @@ export default function Home() {
         fetch(`/api/getData`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data);
                 setShowAllData(data.data);
             })
             .catch((err) => {
-                alert("ERORR");
+                console.error("Error fetching data:", err);
             });
     }, []);
 
     const handleEdit = (id) => {
-        router.push(`/updateData/${id}`);
+        router.push(`/edit/${id}`);
     };
 
     const handleDelete = (id) => {
@@ -99,11 +98,10 @@ export default function Home() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    // Refresh halaman setelah penghapusan data
                     router.reload();
                 })
                 .catch((err) => {
-                    alert("ERORR");
+                    console.error("Error deleting data:", err);
                 });
         }
     };
@@ -112,7 +110,7 @@ export default function Home() {
         <Container>
             <Header>Halaman Depan</Header>
             <AddButton onClick={() => router.push(`/add-data`)}>
-                Add Data
+                Tambah Data
             </AddButton>
             <div>
                 {showAllData &&
@@ -127,7 +125,7 @@ export default function Home() {
                                     }>
                                     Detail
                                 </DetailButton>
-                                <EditButton onClick={() => {router.push(`/edit/${data.id}`)}}>
+                                <EditButton onClick={() => handleEdit(data.id)}>
                                     Edit
                                 </EditButton>
                                 <DeleteButton

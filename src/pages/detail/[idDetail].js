@@ -36,7 +36,7 @@ const BackButton = styled.button`
     border-radius: 5px;
 `;
 
-export default function Handler() {
+export default function Detail() {
     const router = useRouter();
     const { idDetail } = router.query;
     const [showData, setShowData] = useState();
@@ -47,6 +47,9 @@ export default function Handler() {
             .then((res) => res.json())
             .then((data) => {
                 setShowData(data.data);
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
             });
     }, [idDetail]);
 
@@ -65,7 +68,7 @@ export default function Handler() {
                         <strong>Contain:</strong> {showData.contain}
                     </DetailItem>
                     <DetailItem>
-                        <strong>updated At:</strong> {showData.updated_at}
+                        <strong>Updated At:</strong> {showData.updated_at}
                     </DetailItem>
                     <DetailItem>
                         <strong>Created At:</strong> {showData.created_at}
@@ -75,7 +78,7 @@ export default function Handler() {
                 <p>Loading...</p>
             )}
             <BackButton onClick={() => router.push("/")}>
-                Back to Home
+                Kembali ke Halaman Depan
             </BackButton>
         </Container>
     );
