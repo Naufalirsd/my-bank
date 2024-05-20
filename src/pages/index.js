@@ -74,13 +74,14 @@ const DeleteButton = styled.button`
 
 export default function Home() {
     const router = useRouter();
-    const [showAllData, setShowAllData] = useState();
+    const [showAllTransaksi, setShowAllTransaksi] = useState();
 
     useEffect(() => {
         fetch(`/api/getData`)
             .then((res) => res.json())
             .then((data) => {
-                setShowAllData(data.data);
+                setShowAllTransaksi(data.data);
+                console.log(data.data)
             })
             .catch((err) => {
                 console.error("Error fetching data:", err);
@@ -113,23 +114,22 @@ export default function Home() {
                 Tambah Data
             </AddButton>
             <div>
-                {showAllData &&
-                    showAllData.map((data, index) => {
+                {showAllTransaksi &&
+                    showAllTransaksi.map((transaksi, index) => {
                         return (
                             <NoteCard key={index}>
-                                <NoteTitle>{data.title}</NoteTitle>
-                                <p>{data.id}</p>
+                                <p>{transaksi.nama_transaksi} In: {transaksi.income} Out: {transaksi.outcome} {transaksi.tanggal}/{transaksi.bulan}/{transaksi.tahun}</p>
                                 <DetailButton
                                     onClick={() =>
-                                        router.push(`/detail/${data.id}`)
+                                        router.push(`/detail/${transaksi.id}`)
                                     }>
                                     Detail
                                 </DetailButton>
-                                <EditButton onClick={() => handleEdit(data.id)}>
+                                <EditButton onClick={() => handleEdit(transaksi.id)}>
                                     Edit
                                 </EditButton>
                                 <DeleteButton
-                                    onClick={() => handleDelete(data.id)}>
+                                    onClick={() => handleDelete(transaksi.id)}>
                                     Delete
                                 </DeleteButton>
                             </NoteCard>
